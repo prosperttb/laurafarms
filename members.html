@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Laura Farms | Members</title>
+
+<style>
+  :root {
+    --bg: #0e0a0d;
+    --card: rgba(20, 14, 18, 0.72);
+    --text: #f6eef1;
+    --muted: #b9a9b1;
+    --accent: #ff5c8a;
+    --accent-2: #ff9a6c;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    padding: 24px;
+  }
+  header {
+    max-width: 900px; margin: 0 auto 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  header h1 { font-size: 1.4rem; }
+  header p { color: var(--muted); font-size: 0.85rem; }
+  #logoutBtn {
+    padding: 10px 18px; border: 0; border-radius: 10px; cursor: pointer;
+    font-weight: 600; color: #1a0d13;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .gallery {
+    max-width: 900px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 600px) {
+    .gallery { grid-template-columns: 1fr; }
+  }
+  .gallery figure {
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .gallery img {
+    width: 100%; height: 320px; object-fit: cover; display: block;
+  }
+  #loading {
+    color: var(--muted); text-align: center; margin-top: 60px;
+  }
+</style>
+</head>
+
+<body>
+  <div id="loading">Checking your session...</div>
+
+  <div id="page" style="display:none">
+    <header>
+      <div>
+        <h1>Laura Farms</h1>
+        <p id="userEmail"></p>
+      </div>
+      <button id="logoutBtn">Log out</button>
+    </header>
+
+    <div class="gallery">
+      <figure><img src="pic1.jpg" alt="" /></figure>
+      <figure><img src="pic2.jpg" alt="" /></figure>
+      <figure><img src="pic3.jpg" alt="" /></figure>
+      <figure><img src="pic4.jpg" alt="" /></figure>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://zbyrmuumbxtughumcwxu.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpieXJtdXVtYnh0dWdodW1jd3h1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3NDgzNzMsImV4cCI6MjEwNjMyNDM3M30.Rvk26quyc99-Ft7kmxr-iZOVWyPyiPOLOZrMlmCeRvk";
+
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const loadingEl   = document.getElementById("loading");
+  const pageEl      = document.getElementById("page");
+  const userEmailEl = document.getElementById("userEmail");
+  const logoutBtn   = document.getElementById("logoutBtn");
+
+  db.auth.getSession().then(({ data }) => {
+    if (!data.session) {
+      window.location.href = "index.html";
+      return;
+    }
+    userEmailEl.textContent = data.session.user.email;
+    loadingEl.style.display = "none";
+    pageEl.style.display = "block";
+  });
+
+  logoutBtn.addEventListener("click", async () => {
+    await db.auth.signOut();
+    window.location.href = "index.html";
+  });
+</script>
+</body>
+</html>

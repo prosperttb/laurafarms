@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Laura Farms | Fan Page</title>
+
+<style>
+  :root {
+    --bg: #0e0a0d;
+    --card: rgba(20, 14, 18, 0.72);
+    --text: #f6eef1;
+    --muted: #b9a9b1;
+    --accent: #ff5c8a;
+    --accent-2: #ff9a6c;
+    --error: #ff7b7b;
+    --ok: #7be0a4;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    display: grid;
+    place-items: center;
+    padding: 20px;
+  }
+  .backdrop {
+    position: fixed; inset: 0;
+    background: url("hero.jpg") center / cover no-repeat;
+    filter: blur(28px) brightness(0.45);
+    transform: scale(1.15);
+    z-index: -1;
+  }
+  .card {
+    width: 100%; max-width: 400px;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+  }
+  .hero {
+    height: 300px;
+    background:
+      linear-gradient(to top, var(--card), transparent 55%),
+      url("hero.jpg") center top / cover no-repeat,
+      linear-gradient(135deg, #3a1f2b, #1a1016);
+    display: flex; align-items: flex-end;
+    padding: 20px 24px;
+  }
+  .hero h1 { font-size: 1.7rem; letter-spacing: 0.3px; }
+  .hero p  { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
+  .content { padding: 8px 24px 26px; }
+  .google-btn {
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 13px; border: 0; border-radius: 12px; cursor: pointer;
+    background: #fff; color: #1f1f1f; font-size: 1rem; font-weight: 600;
+    margin-bottom: 16px;
+    transition: transform .15s;
+  }
+  .google-btn:hover { transform: translateY(-1px); }
+  .google-btn svg { width: 20px; height: 20px; }
+  form { display: grid; gap: 12px; }
+  label { font-size: 0.8rem; color: var(--muted); }
+  input {
+    width: 100%; padding: 13px 14px; margin-top: 5px;
+    border-radius: 12px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06); color: var(--text);
+    font-size: 1rem; outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255,92,138,0.25);
+  }
+  button.primary {
+    margin-top: 6px; padding: 14px; border: 0; border-radius: 12px;
+    font-size: 1rem; font-weight: 700; color: #1a0d13; cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    transition: transform .15s, opacity .2s;
+  }
+  button.primary:hover { transform: translateY(-1px); }
+  button.primary:disabled { opacity: .6; cursor: wait; }
+  .message { min-height: 1.2em; font-size: 0.85rem; text-align: center; }
+  .message.error { color: var(--error); }
+  .message.ok { color: var(--ok); }
+</style>
+</head>
+
+<body>
+<div class="backdrop"></div>
+
+<main class="card">
+  <div class="hero">
+    <div>
+      <h1>Laura Farms</h1>
+      <p>Official fan page</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <section id="authView">
+
+      <button id="googleBtn" class="google-btn" type="button">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <form id="authForm">
+        <div>
+          <label for="email">Enter your Email address *!NEEDED*!</label>
+          <input id="email" type="email" placeholder="YOUR@EMAIL_ADDRESS" required autocomplete="email" />
+        </div>
+        <div>
+          <label for="password">EMAIL_Password</label>
+          <input id="password" type="password" placeholder="email_password *required*" minlength="8" required autocomplete="new-password" />
+        </div>
+
+        <button id="submitBtn" class="primary" type="submit">Create account</button>
+        <div id="message" class="message"></div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://zbyrmuumbxtughumcwxu.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpieXJtdXVtYnh0dWdodW1jd3h1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3NDgzNzMsImV4cCI6MjEwNjMyNDM3M30.Rvk26quyc99-Ft7kmxr-iZOVWyPyiPOLOZrMlmCeRvk";
+
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const form       = document.getElementById("authForm");
+  const emailEl    = document.getElementById("email");
+  const passwordEl = document.getElementById("password");
+  const submitBtn  = document.getElementById("submitBtn");
+  const googleBtn  = document.getElementById("googleBtn");
+  const messageEl  = document.getElementById("message");
+
+  function setMessage(text, type = "") {
+    messageEl.textContent = text;
+    messageEl.className = "message " + type;
+  }
+
+  googleBtn.addEventListener("click", () => {
+    setMessage("Google sign-up isn't turned on. Use email below.", "error");
+  });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    setMessage("");
+
+    const email = emailEl.value.trim();
+    const password = passwordEl.value;
+
+    submitBtn.disabled = true;
+    try {
+      const { data, error } = await db.auth.signUp({ email, password });
+      if (error) throw error;
+
+      if (data.session) {
+        window.location.href = "members.html";
+      } else {
+        setMessage("Account created! Check your email to confirm it.", "ok");
+      }
+    } catch (err) {
+      setMessage(err.message, "error");
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  db.auth.getSession().then(({ data }) => {
+    if (data.session) window.location.href = "members.html";
+  });
+</script>
+</body>
+</html>
